@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant:ital,wght@1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant:ital,wght@1,300;1,400&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&display=swap" rel="stylesheet">
 <style>
 :root{
   --cream:#F4EFE8;
@@ -60,10 +60,15 @@ body{
   padding-left:.42em;
 }
 .hero-names{
-  font-family:'Cormorant Garamond',serif;font-weight:300;
-  font-size:clamp(3.4rem,11vw,7.2rem);line-height:1.02;color:var(--brown);
+  font-family:'Fraunces',serif;font-weight:900;
+  font-size:clamp(3rem,11vw,7rem);line-height:.92;color:var(--brown);
+  text-transform:uppercase;letter-spacing:.01em;
 }
-.hero-names .amp{display:block;font-style:italic;font-size:.42em;color:var(--gold);margin:.35em 0;font-weight:400}
+.hero-names .amp{
+  display:block;font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-weight:400;font-size:.32em;color:var(--gold);margin:.12em 0;
+  text-transform:none;letter-spacing:0;line-height:1;
+}
 .monogram{
   width:96px;height:96px;margin:2.6rem auto 2rem;position:relative;
 }
@@ -77,8 +82,8 @@ body{
 .scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:2;color:var(--brown-line);font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;opacity:.7;animation:float 2.6s ease-in-out infinite}
 
 /* ===== marquee ===== */
-.marquee-band{background:#141210;padding:18px 0;overflow:hidden;position:relative;z-index:2}
-.marquee-band + .marquee-band{border-top:1px solid rgba(201,187,169,.14)}
+.marquee-band{background:var(--brown);padding:18px 0;overflow:hidden;position:relative;z-index:2}
+.marquee-band + .marquee-band{border-top:1px solid rgba(201,187,169,.2)}
 .marquee-track{display:flex;width:max-content;white-space:nowrap;will-change:transform}
 .mq-left{animation:mqLeft 42s linear infinite}
 .mq-right{animation:mqRight 42s linear infinite}
@@ -237,7 +242,7 @@ body{
     <div class="monogram">
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="Monogram L T">
         <ellipse cx="50" cy="50" rx="30" ry="42" fill="none" stroke="#B08D5B" stroke-width="1.1"/>
-        <text x="50" y="60" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="34" fill="#4A3628" font-style="italic">L·T</text>
+        <text x="50" y="60" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="34" fill="#4A3628" font-style="italic">A·T</text>
       </svg>
     </div>
     <div class="hero-date">01<span class="dot">·</span>08<span class="dot">·</span>2026</div>
@@ -249,12 +254,12 @@ body{
 <!-- ============ MARQUEE ============ -->
 <div class="marquee-band">
   <div class="marquee-track mq-left">
-    <span>TP. Hồ Chí Minh, Việt Nam<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>Lan Anh &amp; Minh Tâm, mãi mãi<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>trang phục lịch sự<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>và câu chuyện bắt đầu<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>ngày một tháng tám, năm hai ngàn không trăm hai mươi sáu<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>TP. Hồ Chí Minh, Việt Nam<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>Lan Anh &amp; Minh Tâm, mãi mãi<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>trang phục lịch sự<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>và câu chuyện bắt đầu<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>ngày một tháng tám, năm hai ngàn không trăm hai mươi sáu<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span>
+    <span>TP. Hồ Chí Minh, Việt Nam<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>Lan Anh &amp; Minh Tâm, mãi mãi<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>cảm ơn vì đã đến bên chúng mình<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>và câu chuyện bắt đầu<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>ngày một tháng tám, năm hai ngàn không trăm hai mươi sáu<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>TP. Hồ Chí Minh, Việt Nam<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>Lan Anh &amp; Minh Tâm, mãi mãi<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>cảm ơn vì đã đến bên chúng mình<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>và câu chuyện bắt đầu<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>ngày một tháng tám, năm hai ngàn không trăm hai mươi sáu<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span>
   </div>
 </div>
 <div class="marquee-band">
   <div class="marquee-track mq-right">
-    <span>save the date<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>01 · 08 · 2026<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>Diamond Place II, Bảy Hiền<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>hẹn gặp quý khách<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>L · T<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>save the date<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>01 · 08 · 2026<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>Diamond Place II, Bảy Hiền<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>hẹn gặp quý khách<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>L · T<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span>
+    <span>save the date<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>01 · 08 · 2026<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>Diamond Place II, Bảy Hiền<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>hẹn gặp quý khách<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>A · T<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>save the date<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>01 · 08 · 2026<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>Diamond Place II, Bảy Hiền<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>hẹn gặp quý khách<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span><span>A · T<span class="star">&nbsp;&nbsp;✦&nbsp;&nbsp;</span></span>
   </div>
 </div>
 
@@ -405,7 +410,7 @@ body{
     <div class="monogram" style="margin-top:0">
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="Monogram L T">
         <ellipse cx="50" cy="50" rx="30" ry="42" fill="none" stroke="#C9BBA9" stroke-width="1.1"/>
-        <text x="50" y="60" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="34" fill="#F4EFE8" font-style="italic">L·T</text>
+        <text x="50" y="60" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="34" fill="#F4EFE8" font-style="italic">A·T</text>
       </svg>
     </div>
     <div class="footer-thanks">Hẹn gặp quý khách</div>
