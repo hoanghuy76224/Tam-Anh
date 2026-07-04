@@ -184,9 +184,77 @@ body{
 .footer-sub{color:var(--mist);font-style:italic;letter-spacing:.04em}
 .footer-names{margin-top:2.4rem;font-family:'Cormorant Garamond',serif;font-size:1.4rem;letter-spacing:.1em;color:var(--gold)}
 
+/* ===== drifting particles ===== */
+.particles{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.particle{position:absolute;bottom:-10px;width:4px;height:4px;border-radius:50%;
+  background:radial-gradient(circle,var(--gold),transparent 70%);opacity:0;
+  animation:drift linear infinite}
+@keyframes drift{
+  0%{transform:translateY(0) translateX(0);opacity:0}
+  10%{opacity:.55}
+  90%{opacity:.35}
+  100%{transform:translateY(-108vh) translateX(var(--dx,20px));opacity:0}
+}
+
+/* ===== hero split-letter ===== */
+.hero-names .word{display:inline-block}
+.hero-names .ltr{display:inline-block;opacity:0;transform:translateY(40px) rotate(4deg);
+  animation:ltrRise .9s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes ltrRise{to{opacity:1;transform:none}}
+
+/* ===== monogram stroke draw ===== */
+.hero .monogram ellipse{stroke-dasharray:230;stroke-dashoffset:230;
+  animation:drawRing 1.8s ease 1.1s forwards}
+.hero .monogram text{opacity:0;animation:monoIn .8s ease 2.4s forwards}
+@keyframes drawRing{to{stroke-dashoffset:0}}
+@keyframes monoIn{to{opacity:1}}
+
+/* ===== countdown ===== */
+.countdown{display:flex;justify-content:center;gap:clamp(1.1rem,4vw,2.2rem);
+  margin-top:1.8rem;opacity:0;animation:rise 1.2s ease 2.6s forwards}
+.cd-unit{text-align:center;min-width:56px}
+.cd-num{font-family:'Cormorant Garamond',serif;font-weight:400;
+  font-size:clamp(1.8rem,5vw,2.6rem);color:var(--brown);line-height:1;
+  font-variant-numeric:tabular-nums}
+.cd-lbl{font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--brown-line);margin-top:.5rem}
+.cd-sep{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,4.5vw,2.4rem);
+  color:var(--gold);align-self:flex-start;line-height:1;padding-top:.1em}
+
+/* ===== gallery zoom + lightbox ===== */
+.gal-item{cursor:pointer}
+.gal-item .inner{position:absolute;inset:0;background:inherit;
+  transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.gal-item:hover .ph{transform:scale(1.06)}
+.gal-item .ph{transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.gal-item::before{content:"";position:absolute;inset:0;z-index:3;opacity:0;
+  background:linear-gradient(180deg,transparent 40%,rgba(74,54,40,.35));
+  transition:opacity .6s ease}
+.gal-item:hover::before{opacity:1}
+.lightbox{position:fixed;inset:0;z-index:99;background:rgba(58,44,32,.92);
+  display:flex;align-items:center;justify-content:center;padding:32px;
+  opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s ease;
+  backdrop-filter:blur(4px)}
+.lightbox.open{opacity:1;visibility:visible}
+.lightbox-inner{max-width:min(90vw,720px);width:100%;aspect-ratio:4/3;
+  background:linear-gradient(135deg,#D8CCBB,#B7A791);border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant',serif;font-style:italic;color:rgba(255,255,255,.8);
+  font-size:1.3rem;letter-spacing:.1em;transform:scale(.92);
+  transition:transform .5s cubic-bezier(.2,.7,.2,1);box-shadow:0 40px 90px -30px rgba(0,0,0,.6)}
+.lightbox.open .lightbox-inner{transform:scale(1)}
+.lightbox-close{position:absolute;top:24px;right:28px;color:var(--cream);
+  font-size:2rem;cursor:pointer;line-height:1;opacity:.8;transition:opacity .3s}
+.lightbox-close:hover{opacity:1}
+
+/* ===== word reveal for titles ===== */
+.sec-title .w,.footer-thanks .w{display:inline-block}
+
 /* ===== reveal ===== */
 .reveal{opacity:0;transform:translateY(30px);transition:opacity 1s ease,transform 1s ease}
 .reveal.in{opacity:1;transform:none}
+.reveal.blur{filter:blur(6px)}
+.reveal.blur.in{filter:blur(0)}
 
 @keyframes rise{to{opacity:1;transform:none}}
 @keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
@@ -201,8 +269,13 @@ body{
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
-  .reveal{opacity:1;transform:none}
+  .reveal{opacity:1;transform:none;filter:none}
   .mq-left,.mq-right{animation:none!important}
+  .hero-names .ltr{opacity:1;transform:none}
+  .hero .monogram ellipse{stroke-dashoffset:0}
+  .hero .monogram text{opacity:1}
+  .countdown{opacity:1}
+  .particles{display:none}
 }
 </style>
 </head>
@@ -211,6 +284,7 @@ body{
 <!-- ============ HERO ============ -->
 <header class="hero">
   <div class="hero-mountains"></div>
+  <div class="particles" aria-hidden="true"></div>
   <svg class="pine-svg" viewBox="0 0 1440 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs>
       <linearGradient id="pineFade" x1="0" y1="0" x2="0" y2="1">
@@ -247,6 +321,7 @@ body{
     </div>
     <div class="hero-date">01<span class="dot">·</span>08<span class="dot">·</span>2026</div>
     <div class="hero-sub">Thứ Bảy — Nhằm ngày 19 tháng 6 âm lịch</div>
+    <div class="countdown" id="countdown" aria-label="Đếm ngược đến ngày cưới"></div>
   </div>
   <div class="scroll-hint">Cuộn xuống</div>
 </header>
@@ -328,13 +403,13 @@ body{
     <div class="rule reveal"></div>
 
     <div class="gal-grid reveal">
-      <div class="gal-item g1"><span class="ph">Ảnh 1</span></div>
-      <div class="gal-item g2"><span class="ph">Ảnh 2</span></div>
-      <div class="gal-item g3"><span class="ph">Ảnh 3</span></div>
-      <div class="gal-item g4"><span class="ph">Ảnh 4</span></div>
-      <div class="gal-item g5"><span class="ph">Ảnh 5</span></div>
-      <div class="gal-item g6"><span class="ph">Ảnh 6</span></div>
-      <div class="gal-item g7"><span class="ph">Ảnh 7</span></div>
+      <div class="gal-item g1" data-label="Ảnh 1"><span class="ph">Ảnh 1</span></div>
+      <div class="gal-item g2" data-label="Ảnh 2"><span class="ph">Ảnh 2</span></div>
+      <div class="gal-item g3" data-label="Ảnh 3"><span class="ph">Ảnh 3</span></div>
+      <div class="gal-item g4" data-label="Ảnh 4"><span class="ph">Ảnh 4</span></div>
+      <div class="gal-item g5" data-label="Ảnh 5"><span class="ph">Ảnh 5</span></div>
+      <div class="gal-item g6" data-label="Ảnh 6"><span class="ph">Ảnh 6</span></div>
+      <div class="gal-item g7" data-label="Ảnh 7"><span class="ph">Ảnh 7</span></div>
     </div>
     <p class="gal-note reveal">Ảnh cưới sẽ được cập nhật</p>
   </div>
@@ -396,6 +471,12 @@ body{
   </div>
 </section>
 
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="lightbox-close" id="lbClose" aria-label="Đóng">×</div>
+  <div class="lightbox-inner" id="lbInner"></div>
+</div>
+
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
   <svg class="pine-svg" viewBox="0 0 1440 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="transform:scaleY(-1);opacity:.28" aria-hidden="true">
@@ -420,6 +501,10 @@ body{
 </footer>
 
 <script>
+const reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* ---- reveal (existing + blur variant on titles) ---- */
+document.querySelectorAll('.sec-title, .footer-thanks').forEach(el=>el.classList.add('blur'));
 const io=new IntersectionObserver((es)=>{
   es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
 },{threshold:.12});
@@ -427,6 +512,113 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   el.style.transitionDelay=(i%4*90)+'ms';
   io.observe(el);
 });
+
+if(!reduce){
+  /* ---- split hero names into letters ---- */
+  document.querySelectorAll('.hero-names').forEach(h=>{
+    let d=0;
+    h.querySelectorAll('.word, span:not(.amp)').length; // no-op guard
+    // process direct text nodes into words/letters, keep .amp intact
+    const nodes=[...h.childNodes];
+    h.innerHTML='';
+    nodes.forEach(n=>{
+      if(n.nodeType===3){
+        const txt=n.textContent.trim();
+        if(!txt)return;
+        txt.split(/\s+/).forEach((word,wi,arr)=>{
+          const w=document.createElement('span');w.className='word';
+          [...word].forEach(ch=>{
+            const s=document.createElement('span');s.className='ltr';
+            s.textContent=ch;s.style.animationDelay=(0.3+d*0.045)+'s';d++;
+            w.appendChild(s);
+          });
+          h.appendChild(w);
+          if(wi<arr.length-1)h.appendChild(document.createTextNode(' '));
+        });
+      } else {
+        h.appendChild(n); // .amp span
+      }
+    });
+  });
+
+  /* ---- word-split titles for staggered reveal ---- */
+  document.querySelectorAll('.sec-title, .footer-thanks').forEach(t=>{
+    const words=t.textContent.trim().split(/\s+/);
+    t.innerHTML=words.map(w=>`<span class="w">${w}</span>`).join(' ');
+  });
+
+  /* ---- floating particles ---- */
+  const pc=document.querySelector('.particles');
+  if(pc){
+    const N=window.innerWidth<680?14:26;
+    for(let i=0;i<N;i++){
+      const p=document.createElement('div');p.className='particle';
+      const size=2+Math.random()*3;
+      p.style.left=Math.random()*100+'%';
+      p.style.width=p.style.height=size+'px';
+      p.style.setProperty('--dx',(Math.random()*80-40)+'px');
+      p.style.animationDuration=(11+Math.random()*12)+'s';
+      p.style.animationDelay=(-Math.random()*20)+'s';
+      pc.appendChild(p);
+    }
+  }
+
+  /* ---- hero parallax ---- */
+  const heroInner=document.querySelector('.hero-inner');
+  const pines=document.querySelector('.hero .pine-svg');
+  let ticking=false;
+  window.addEventListener('scroll',()=>{
+    if(ticking)return;ticking=true;
+    requestAnimationFrame(()=>{
+      const y=window.scrollY;
+      if(y<window.innerHeight){
+        if(heroInner)heroInner.style.transform='translateY('+(y*0.18)+'px)';
+        if(pines)pines.style.transform='translateY('+(y*-0.06)+'px)';
+      }
+      ticking=false;
+    });
+  },{passive:true});
+}
+
+/* ---- countdown ---- */
+(function(){
+  const el=document.getElementById('countdown');
+  if(!el)return;
+  const target=new Date('2026-08-01T18:00:00+07:00').getTime();
+  const units=[['Ngày',864e5],['Giờ',36e5],['Phút',6e4],['Giây',1e3]];
+  function render(){
+    let diff=target-Date.now();
+    if(diff<0)diff=0;
+    let html='';
+    units.forEach((u,i)=>{
+      const v=Math.floor(diff/u[1]);diff-=v*u[1];
+      html+=`<div class="cd-unit"><div class="cd-num">${String(v).padStart(2,'0')}</div><div class="cd-lbl">${u[0]}</div></div>`;
+      if(i<units.length-1)html+='<div class="cd-sep">:</div>';
+    });
+    el.innerHTML=html;
+  }
+  render();setInterval(render,1000);
+})();
+
+/* ---- lightbox ---- */
+(function(){
+  const lb=document.getElementById('lightbox');
+  const inner=document.getElementById('lbInner');
+  const close=document.getElementById('lbClose');
+  if(!lb)return;
+  document.querySelectorAll('.gal-item').forEach(item=>{
+    item.addEventListener('click',()=>{
+      inner.textContent=item.dataset.label||'';
+      lb.classList.add('open');lb.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+    });
+  });
+  function shut(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+  close.addEventListener('click',shut);
+  lb.addEventListener('click',e=>{if(e.target===lb)shut();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')shut();});
+})();
 </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"bd00b47dafed4d47ad397d232c3e9bb8","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
